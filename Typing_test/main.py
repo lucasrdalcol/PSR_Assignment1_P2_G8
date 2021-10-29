@@ -11,6 +11,7 @@ from numpy.random import randint
 from my_classes import *
 from my_functions import *
 import readchar
+import json
 
 
 # --------------------------------------------------
@@ -57,7 +58,7 @@ def main():
 
     # Initialize parameters dict
     parameters = {}
-
+    list= []
     # Counter for the number of inputs
     number_inputs = 0
     number_of_hits = 0
@@ -74,10 +75,10 @@ def main():
         low_case = randint(97, 122)
         print('Type letter ' + Fore.BLUE + chr(low_case) + Fore.RESET)
 
-
+        type_time_init=time() #tempo de resposta
         # Get pressed key from keyboard
         pressed_key = readchar.readkey()
-
+        type_time_end=time() #fim do tempo de reposta
         # Analyse pressed key to see if it's a space, to stop the code.
         if pressed_key == str(' '):
             break
@@ -90,7 +91,9 @@ def main():
             print('You typed letter ' + Fore.RED + pressed_key + Fore.RESET)
 
         number_inputs += 1
-
+        key= (chr(low_case),pressed_key,type_time_end - type_time_init)
+        list.append(key)
+    end_time= time()
     print('The test is over. See you next time!')
 
     parameters['test_end'] = ctime()
@@ -98,8 +101,9 @@ def main():
     parameters['number_of_hits'] = number_of_hits
     parameters['number_of_misses'] = number_inputs - number_of_hits
     parameters['accuracy'] = number_of_hits/number_inputs
-
-    print(parameters)
+    parameters['test_duration'] = end_time-start_time
+    parameters['types'] = list
+    print(json.dumps(parameters, indent=4))
 
 
 if __name__ == "__main__":
