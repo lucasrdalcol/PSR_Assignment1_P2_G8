@@ -5,6 +5,7 @@
 # --------------------------------------------------
 from time import time
 
+
 # ------------------------
 ##   DATA STRUCTURES   ##
 # ------------------------
@@ -20,22 +21,21 @@ def tic():
     :return: a float.
     """
 
-    global start_time
+    # Get the number os seconds passed since epoch
     start_time = time()
 
+    return start_time
 
-def toc():
+
+def toc(start_time):
     """
-    Function used to print the elapsed time since function tic() was used. tic() and toc() works together.
+    Function used to return the elapsed time since function tic() was used. tic() and toc() works together.
+    :param start_time: number of seconds passed since epoch given by tic() function. Datatype: float
     :return: a float.
     """
 
-    # Get the number os seconds passed since epoch and subtract from tic(). This is the elapsed time from tic to toc.
+    # Get the number of seconds passed since epoch and subtract from tic(). This is the elapsed time from tic to toc.
+    end_time = time()
+    elapsed_time = end_time - start_time
 
-    # Check if start_time is inside global variables
-    if 'start_time' in globals():
-        last_time = time()
-        elapsed_time = last_time - start_time
-        print('Elapsed time: ' + str(elapsed_time) + ' seconds.')
-    else:
-        print('Error: start time from tic() not set')
+    return elapsed_time
