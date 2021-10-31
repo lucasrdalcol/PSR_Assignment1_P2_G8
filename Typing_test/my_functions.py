@@ -52,7 +52,12 @@ def toc(start_time):
 
 
 def typing_test(use_time_mode, max_value):
-
+    """
+    Function to compute the typing test.
+    :param use_time_mode: Use time mode or input mode
+    :param max_value: maximum value of seconds within time mode or maximum value of inputs within input mode
+    :return: all statistics to be print after
+    """
     # Initialize list of inputs and durations averages
     input_list = []
     type_hit_average_duration = []
