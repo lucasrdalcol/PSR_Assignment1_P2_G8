@@ -91,11 +91,11 @@ def main():
     if bool(type_hit_average_duration):
         parameters['type_hit_average_duration'] = mean(type_hit_average_duration)
     else:
-        parameters['type_hit_average_duration'] = 0.0
+        parameters['type_hit_average_duration'] = None
     if bool(type_miss_average_duration):
         parameters['type_miss_average_duration'] = mean(type_miss_average_duration)
     else:
-        parameters['type_miss_average_duration'] = 0.0
+        parameters['type_miss_average_duration'] = None
 
     # Pretty print with colors
     # cpprint(parameters, sort_dict_keys=True)
