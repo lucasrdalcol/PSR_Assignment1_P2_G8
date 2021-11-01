@@ -5,6 +5,7 @@
 # --------------------------------------------------
 import argparse
 import os
+import sys
 from collections import namedtuple
 from pprint import pprint
 from prettyprinter import cpprint
@@ -19,8 +20,10 @@ from statistics import mean
 from prettyprinter import set_default_style
 from prettyprinter import install_extras
 from termcolor import colored, cprint
+
 install_extras(['python'])
 set_default_style('light')
+
 
 # --------------------------------------------------
 # Script of a typing test - Assignment 1. Examples of similar softwares here: https://www.typingtest.com/
@@ -118,18 +121,22 @@ def main():
                , color='white', on_color='on_blue', attrs=['blink'])
 
     print('\nI bet this was fun, do you want to play again?')
-    answer = str(input(Back.GREEN+'Run again?'+Back.RESET + '(y/n): '))
+    answer = str(input(Back.GREEN + 'Run again?' + Back.RESET + '(y/n): '))
 
-    if args['use_time_mode'] == False and answer == 'y':
-        print("Alright let's go again")
-        os.system('clear &&./main.py -mv ' + str(args['max_value']))
-    elif args['use_time_mode'] == True and answer == 'y':
-        print("Alright let's go again!\n")
-        os.system('clear && ./main.py -utm -mv ' + str(args['max_value']))
+    # if args['use_time_mode'] == False and answer == 'y':
+    #     print("Alright let's go again")
+    #     os.system('clear &&./main.py -mv ' + str(args['max_value']))
+    # elif args['use_time_mode'] == True and answer == 'y':
+    #     print("Alright let's go again!\n")
+    #     os.system('clear && ./main.py -utm -mv ' + str(args['max_value']))
+    # else:
+    #     print('Goodbye.\nSee you next time.\n')
+
+    if answer == 'y':
+        os.execv(sys.argv[0], sys.argv)
     else:
         print('Goodbye.\nSee you next time.\n')
 
 
 if __name__ == "__main__":
     main()
-
