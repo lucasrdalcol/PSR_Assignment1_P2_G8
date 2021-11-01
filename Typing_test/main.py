@@ -4,6 +4,7 @@
 # IMPORT MODULES
 # --------------------------------------------------
 import argparse
+import os
 from collections import namedtuple
 from pprint import pprint
 from prettyprinter import cpprint
@@ -108,8 +109,17 @@ def main():
     # pprint(parameters)
     pprint_color(parameters)
 
-    print('\nThank you. See you next time.')
+
+    print('I bet this was fun, do you want to play again?')
+    answer = str(input(Back.GREEN+'Run again?'+Back.RESET + '(y/n): '))
+    if answer == 'y':
+        print("Alright let's go again")
+        os.system('./main.py -mv 5')
+    else:
+        print("Goodbye")
+        print('See you next time.')
 
 
 if __name__ == "__main__":
     main()
+
