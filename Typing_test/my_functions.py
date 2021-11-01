@@ -118,6 +118,7 @@ def typing_test(use_time_mode, max_value):
 
             # Analyse pressed key to see if it's a space, to stop the code.
             if pressed_key == str(' '):
+                print(Fore.RED+'----ATENTION----'+Fore.RESET)
                 print('\nYou pressed the space bar, test aborted.')
                 exit(0)
 

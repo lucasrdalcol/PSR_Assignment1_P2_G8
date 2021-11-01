@@ -17,6 +17,7 @@ import readchar
 from statistics import mean
 from prettyprinter import set_default_style
 from prettyprinter import install_extras
+from termcolor import colored, cprint
 install_extras(['python'])
 set_default_style('light')
 
@@ -96,7 +97,12 @@ def main():
         parameters['type_miss_average_duration'] = mean(type_miss_average_duration)
     else:
         parameters['type_miss_average_duration'] = None
-
+    if parameters['accuracy'] == 1:
+        cprint('You hit every single one, you are a genius!'
+                      ,color='white',on_color='on_green', attrs=['blink'])
+    if parameters['accuracy'] == 0:
+        cprint('You missed them all, go home and practice!'
+               , color='white', on_color='on_red', attrs=['blink'])
     # Pretty print with colors
     # cpprint(parameters, sort_dict_keys=True)
     # pprint(parameters)
