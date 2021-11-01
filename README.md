@@ -12,7 +12,7 @@ This program aims to measure your typing accuracy.
 
 # Usage
 To launch the program, the user can enter 2 additional input arguments: the Maximum Value and/or the User Time Mode.
-If none of them are inserted, the default maximum value is 10 and the user time mode is set to false. 
+
 
 There are 2 game modes: by number of typed letters and by time in seconds.
 The User Time Mode input argument sets the game mode. If its false (as default) the game mode is set by the number of the typed letters. In other hand, if the user call the utm input argument when launching the game, the game mode is set to the seconds of typing.
