@@ -98,26 +98,36 @@ def main():
         parameters['type_miss_average_duration'] = mean(type_miss_average_duration)
     else:
         parameters['type_miss_average_duration'] = None
-    if parameters['accuracy'] == 1:
-        cprint('You hit every single one, you are a genius!'
-                      ,color='white',on_color='on_green', attrs=['blink'])
-    if parameters['accuracy'] == 0:
-        cprint('You missed them all, go home and practice!'
-               , color='white', on_color='on_red', attrs=['blink'])
+
     # Pretty print with colors
     # cpprint(parameters, sort_dict_keys=True)
     # pprint(parameters)
     pprint_color(parameters)
 
+    if parameters['accuracy'] == 1:
+        cprint('You hit every single one, you are a genius!'
+               , color='white', on_color='on_green', attrs=['blink'])
+    elif parameters['accuracy'] == 0:
+        cprint('You missed them all, go home and practice!'
+               , color='white', on_color='on_red', attrs=['blink'])
+    elif parameters['accuracy'] > 0 and parameters['accuracy'] <= 0.5:
+        cprint('You missed more then 50%. Keep practicing!'
+               , color='white', on_color='on_yellow', attrs=['blink'])
+    elif parameters['accuracy'] > 0.5 and parameters['accuracy'] < 1:
+        cprint('You were good, but can be better.'
+               , color='white', on_color='on_blue', attrs=['blink'])
 
-    print('I bet this was fun, do you want to play again?')
+    print('\nI bet this was fun, do you want to play again?')
     answer = str(input(Back.GREEN+'Run again?'+Back.RESET + '(y/n): '))
-    if answer == 'y':
+
+    if args['use_time_mode'] == False and answer == 'y':
         print("Alright let's go again")
-        os.system('./main.py -mv 5')
+        os.system('clear &&./main.py -mv ' + str(args['max_value']))
+    elif args['use_time_mode'] == True and answer == 'y':
+        print("Alright let's go again!\n")
+        os.system('clear && ./main.py -utm -mv ' + str(args['max_value']))
     else:
-        print("Goodbye")
-        print('See you next time.')
+        print('Goodbye.\nSee you next time.\n')
 
 
 if __name__ == "__main__":
