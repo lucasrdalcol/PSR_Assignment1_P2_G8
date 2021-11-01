@@ -58,10 +58,8 @@ def typing_test(use_time_mode, max_value):
     :param max_value: maximum value of seconds within time mode or maximum value of inputs within input mode
     :return: all statistics to be print after
     """
-    # Initialize list of inputs and durations averages
+    # Initialize list of inputs
     input_list = []
-    type_hit_average_duration = []
-    type_miss_average_duration = []
 
     # Counter for the number of inputs
     number_inputs = 0
@@ -94,11 +92,11 @@ def typing_test(use_time_mode, max_value):
                     if pressed_key == chr(low_case):
                         print('You typed letter ' + Fore.GREEN + pressed_key + Fore.RESET)
                         number_of_hits += 1
-                        # idx_hit.append(number_inputs)
-                        type_hit_average_duration.append(type_elapsed_time)
+                        #idx_hit.append(number_inputs)
+                        #type_hit_average_duration.append(type_elapsed_time)
                     else:
                         print('You typed letter ' + Fore.RED + pressed_key + Fore.RESET)
-                        type_miss_average_duration.append(type_elapsed_time)
+                        #type_miss_average_duration.append(type_elapsed_time)
 
                     number_inputs += 1
 
@@ -130,14 +128,18 @@ def typing_test(use_time_mode, max_value):
             if pressed_key == chr(low_case):
                 print('You typed letter ' + Fore.GREEN + pressed_key + Fore.RESET)
                 number_of_hits += 1
-                type_hit_average_duration.append(type_elapsed_time)
+                #type_hit_average_duration.append(type_elapsed_time)
             else:
                 print('You typed letter ' + Fore.RED + pressed_key + Fore.RESET)
-                type_miss_average_duration.append(type_elapsed_time)
+                #type_miss_average_duration.append(type_elapsed_time)
 
             number_inputs += 1
 
     type_average_durations = [type_duration.duration for type_duration in input_list]
+    type_hit_average_duration=[type_duration.duration for type_duration in input_list if \
+                               type_duration.requested == type_duration.received]
+    type_miss_average_duration= [type_duration.duration for type_duration in input_list if \
+                                 type_duration.requested != type_duration.received]
 
     return input_list, number_inputs, number_of_hits, type_average_durations, type_hit_average_duration, \
            type_miss_average_duration
