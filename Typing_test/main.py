@@ -20,7 +20,6 @@ from statistics import mean
 from prettyprinter import set_default_style
 from prettyprinter import install_extras
 from termcolor import colored, cprint
-
 install_extras(['python'])
 set_default_style('light')
 
@@ -40,7 +39,6 @@ set_default_style('light')
 
 
 def main():
-
     # ---------------------------------------------------
     # Initialization
     # ---------------------------------------------------
@@ -57,7 +55,7 @@ def main():
 
     # Print the description and the contributors of the typing test.
     print("\nWelcome to our Typing Test. \n\nContributors: \n- Lucas Rodrigues Dal'Col \n- Vinícius Campos de Oliveira "
-          "Batista \n- José Pedro Moura Costa Pinto \n- Rodrigo Dinis Martins Ferreira \n\n PSR, University of Aveiro, "
+          "Batista \n- José Pedro Moura Costa Pinto \n- Rodrigo Dinis Martins Ferreira \n\nPSR, University of Aveiro, "
           "November 2021.\n")
 
     # See which mode is being used and ask to press any key to start.
@@ -77,14 +75,19 @@ def main():
 
     # Call typing test function for each time mode
     if args['use_time_mode']:
-        inputs, type_average_durations, type_hit_average_durations, type_miss_average_durations \
-            = typing_test(use_time_mode=True, max_value=args['max_value'])
+        inputs = typing_test(use_time_mode=True, max_value=args['max_value'])
     else:
-        inputs, type_average_durations, type_hit_average_durations, type_miss_average_durations \
-            = typing_test(use_time_mode=False, max_value=args['max_value'])
+        inputs = typing_test(use_time_mode=False, max_value=args['max_value'])
 
     test_elapsed_time = toc(start_time)
     print('\nThe test is over. Here it is your statistics: \n')
+
+    # Create lists for all type durations
+    type_average_durations = [input_namedtuple.duration for input_namedtuple in inputs]
+    type_hit_average_durations = [input_namedtuple.duration for input_namedtuple in inputs
+                                  if input_namedtuple.requested == input_namedtuple.received]
+    type_miss_average_durations = [input_namedtuple.duration for input_namedtuple in inputs
+                                   if input_namedtuple.requested != input_namedtuple.received]
 
     # Add more dictionary keys with the other parameters requested.
     parameters['test_end'] = ctime()

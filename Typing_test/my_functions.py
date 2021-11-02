@@ -27,7 +27,7 @@ def tic():
     """
     Functions used to return the numbers of seconds passed since epoch to use with function toc() afterwards.
     Like tic toc matlab functions.
-    :return: a float.
+    :return start_time: a float.
     """
 
     # Get the number os seconds passed since epoch
@@ -40,7 +40,7 @@ def toc(start_time):
     """
     Function used to return the elapsed time since function tic() was used. tic() and toc() works together.
     :param start_time: number of seconds passed since epoch given by tic() function. Datatype: float
-    :return: a float.
+    :return elapsed_time: a float.
     """
 
     # Get the number of seconds passed since epoch and subtract from tic(). This is the elapsed time from tic to toc.
@@ -55,7 +55,7 @@ def typing_test(use_time_mode, max_value):
     Function to compute the typing test.
     :param use_time_mode: Use time mode or input mode
     :param max_value: maximum value of seconds within time mode or maximum value of inputs within input mode
-    :return: all statistics about the test
+    :return inputs: list of namedtuples
     """
     # Initialize list of inputs and counter of number of inputs
     inputs = []
@@ -124,14 +124,7 @@ def typing_test(use_time_mode, max_value):
 
             number_inputs += 1
 
-    # Create lists for all type durations
-    type_average_durations = [type_duration.duration for type_duration in inputs]
-    type_hit_average_durations = [type_duration.duration for type_duration in inputs if \
-                                 type_duration.requested == type_duration.received]
-    type_miss_average_durations = [type_duration.duration for type_duration in inputs if \
-                                  type_duration.requested != type_duration.received]
-
-    return inputs, type_average_durations, type_hit_average_durations, type_miss_average_durations
+    return inputs
 
 
 def pprint_color(obj):
