@@ -82,8 +82,9 @@ def typing_test(use_time_mode, max_value):
 
                     # Create tuple with requested and received key with its durations and append to a list for the
                     # dict later on.
-                    input = Input(requested=chr(low_case), received=pressed_key, duration=type_elapsed_time)
-                    inputs.append(input)
+                    input_namedtuple = Input(requested=chr(low_case), received=pressed_key,
+                                             duration=round(type_elapsed_time, 2))
+                    inputs.append(input_namedtuple)
 
                     # Check the pressed key with the random low case letter
                     if pressed_key == chr(low_case):
@@ -113,8 +114,9 @@ def typing_test(use_time_mode, max_value):
 
             # Create tuple with requested and received key with its durations and append to a list for the dict later
             # on.
-            input = Input(requested=chr(low_case), received=pressed_key, duration=type_elapsed_time)
-            inputs.append(input)
+            input_namedtuple = Input(requested=chr(low_case), received=pressed_key,
+                                     duration=round(type_elapsed_time, 2))
+            inputs.append(input_namedtuple)
 
             # Check the pressed key with the random low case letter
             if pressed_key == chr(low_case):

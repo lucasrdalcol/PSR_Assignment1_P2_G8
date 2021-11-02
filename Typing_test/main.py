@@ -95,21 +95,21 @@ def main():
     parameters['number_of_hits'] = len(type_hit_average_durations)
     parameters['number_of_misses'] = len(type_miss_average_durations)
     if bool(inputs):
-        parameters['accuracy'] = len(type_hit_average_durations) / len(type_average_durations)
+        parameters['accuracy'] = round(len(type_hit_average_durations) / len(type_average_durations), 2)
     else:
         parameters['accuracy'] = None
-    parameters['test_duration'] = test_elapsed_time
+    parameters['test_duration'] = round(test_elapsed_time, 2)
     parameters['inputs'] = inputs
     if bool(inputs):
-        parameters['type_average_duration'] = mean(type_average_durations)
+        parameters['type_average_duration'] = round(mean(type_average_durations), 2)
     else:
         parameters['type_average_duration'] = None
     if bool(type_hit_average_durations):
-        parameters['type_hit_average_duration'] = mean(type_hit_average_durations)
+        parameters['type_hit_average_duration'] = round(mean(type_hit_average_durations), 2)
     else:
         parameters['type_hit_average_duration'] = None
     if bool(type_miss_average_durations):
-        parameters['type_miss_average_duration'] = mean(type_miss_average_durations)
+        parameters['type_miss_average_duration'] = round(mean(type_miss_average_durations), 2)
     else:
         parameters['type_miss_average_duration'] = None
 
