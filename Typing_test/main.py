@@ -40,9 +40,11 @@ set_default_style('light')
 
 
 def main():
+
     # ---------------------------------------------------
     # Initialization
     # ---------------------------------------------------
+
     # Use argparse to give arguments to the script in terminal.
     ap = argparse.ArgumentParser()
     ap.add_argument('-utm', '--use_time_mode', action='store_true',
@@ -53,8 +55,8 @@ def main():
                          ' mode or maximum number of inputs ' + Fore.RED + 'for' + Fore.RESET + ' number of inputs mode')
     args = vars(ap.parse_args())
 
-    # Print the description of the typing test.
-    print("Welcome to our Typing Test. \n\nContributors: \n- Lucas Rodrigues Dal'Col \n- Vinícius Campos de Oliveira "
+    # Print the description and the contributors of the typing test.
+    print("\nWelcome to our Typing Test. \n\nContributors: \n- Lucas Rodrigues Dal'Col \n- Vinícius Campos de Oliveira "
           "Batista \n- José Pedro Moura Costa Pinto \n- Rodrigo Dinis Martins Ferreira \n\n PSR, University of Aveiro, "
           "November 2021.\n")
 
@@ -75,67 +77,68 @@ def main():
 
     # Call typing test function for each time mode
     if args['use_time_mode']:
-        input_list, number_inputs, number_of_hits, type_average_durations, type_hit_average_duration, \
-        type_miss_average_duration = typing_test(use_time_mode=True, max_value=args['max_value'])
+        inputs, type_average_durations, type_hit_average_durations, type_miss_average_durations \
+            = typing_test(use_time_mode=True, max_value=args['max_value'])
     else:
-        input_list, number_inputs, number_of_hits, type_average_durations, type_hit_average_duration, \
-        type_miss_average_duration = typing_test(use_time_mode=False, max_value=args['max_value'])
+        inputs, type_average_durations, type_hit_average_durations, type_miss_average_durations \
+            = typing_test(use_time_mode=False, max_value=args['max_value'])
 
     test_elapsed_time = toc(start_time)
     print('\nThe test is over. Here it is your statistics: \n')
 
     # Add more dictionary keys with the other parameters requested.
     parameters['test_end'] = ctime()
-    parameters['number_of_types'] = number_inputs
-    parameters['number_of_hits'] = number_of_hits
-    parameters['number_of_misses'] = number_inputs - number_of_hits
-    parameters['accuracy'] = number_of_hits / number_inputs
+    parameters['number_of_types'] = len(type_average_durations)
+    parameters['number_of_hits'] = len(type_hit_average_durations)
+    parameters['number_of_misses'] = len(type_miss_average_durations)
+    if bool(inputs):
+        parameters['accuracy'] = len(type_hit_average_durations) / len(type_average_durations)
+    else:
+        parameters['accuracy'] = None
     parameters['test_duration'] = test_elapsed_time
-    parameters['inputs'] = input_list
-    parameters['type_average_duration'] = mean(type_average_durations)
-    if bool(type_hit_average_duration):
-        parameters['type_hit_average_duration'] = mean(type_hit_average_duration)
+    parameters['inputs'] = inputs
+    if bool(inputs):
+        parameters['type_average_duration'] = mean(type_average_durations)
+    else:
+        parameters['type_average_duration'] = None
+    if bool(type_hit_average_durations):
+        parameters['type_hit_average_duration'] = mean(type_hit_average_durations)
     else:
         parameters['type_hit_average_duration'] = None
-    if bool(type_miss_average_duration):
-        parameters['type_miss_average_duration'] = mean(type_miss_average_duration)
+    if bool(type_miss_average_durations):
+        parameters['type_miss_average_duration'] = mean(type_miss_average_durations)
     else:
         parameters['type_miss_average_duration'] = None
 
     # Pretty print with colors
-    # cpprint(parameters, sort_dict_keys=True)
-    # pprint(parameters)
     pprint_color(parameters)
 
-    if parameters['accuracy'] == 1:
-        cprint('You hit every single one, you are a genius!'
-               , color='white', on_color='on_green', attrs=['blink'])
-    elif parameters['accuracy'] == 0:
-        cprint('You missed them all, go home and practice!'
-               , color='white', on_color='on_red', attrs=['blink'])
-    elif parameters['accuracy'] > 0 and parameters['accuracy'] <= 0.5:
-        cprint('You missed more then 50%. Keep practicing!'
-               , color='white', on_color='on_yellow', attrs=['blink'])
-    elif parameters['accuracy'] > 0.5 and parameters['accuracy'] < 1:
-        cprint('You were good, but can be better.'
-               , color='white', on_color='on_blue', attrs=['blink'])
+    # Print messages to motivate the user according to his accuracy
+    if bool(inputs):
+        if parameters['accuracy'] == 1:
+            cprint('You hit every single one, you are a genius!'
+                   , color='white', on_color='on_green', attrs=['blink'])
+        elif parameters['accuracy'] == 0:
+            cprint('You missed them all, go home and practice!'
+                   , color='white', on_color='on_red', attrs=['blink'])
+        elif 0 < parameters['accuracy'] < 0.5:
+            cprint('You missed more then 50%. Keep practicing!'
+                   , color='white', on_color='on_yellow', attrs=['blink'])
+        elif 0.5 <= parameters['accuracy'] < 1:
+            cprint('You were good, but can be better.'
+                   , color='white', on_color='on_blue', attrs=['blink'])
 
-    print('\nI bet this was fun, do you want to play again?')
+    # Ask to the user if he wants to try again or not.
+    if bool(inputs):
+        print('\nI bet this was fun, do you want to play again?')
+    else:
+        print('\nYou should have played, do you want to try again?')
     answer = str(input(Back.GREEN + 'Run again?' + Back.RESET + '(y/n): '))
-
-    # if args['use_time_mode'] == False and answer == 'y':
-    #     print("Alright let's go again")
-    #     os.system('clear &&./main.py -mv ' + str(args['max_value']))
-    # elif args['use_time_mode'] == True and answer == 'y':
-    #     print("Alright let's go again!\n")
-    #     os.system('clear && ./main.py -utm -mv ' + str(args['max_value']))
-    # else:
-    #     print('Goodbye.\nSee you next time.\n')
 
     if answer == 'y':
         os.execv(sys.argv[0], sys.argv)
     else:
-        print('Goodbye.\nSee you next time.\n')
+        print('\nGoodbye.\nSee you next time.\n')
 
 
 if __name__ == "__main__":

@@ -14,7 +14,6 @@ from pygments.lexers import PythonLexer
 from pygments.formatters import Terminal256Formatter
 from pprint import pformat
 
-
 # ------------------------
 ##   DATA STRUCTURES   ##
 # ------------------------
@@ -56,15 +55,13 @@ def typing_test(use_time_mode, max_value):
     Function to compute the typing test.
     :param use_time_mode: Use time mode or input mode
     :param max_value: maximum value of seconds within time mode or maximum value of inputs within input mode
-    :return: all statistics to be print after
+    :return: all statistics about the test
     """
-    # Initialize list of inputs
-    input_list = []
-
-    # Counter for the number of inputs
+    # Initialize list of inputs and counter of number of inputs
+    inputs = []
     number_inputs = 0
-    number_of_hits = 0
 
+    # Use time mode or use input mode
     if use_time_mode:
         try:  # Stop the program immediately when time runs out
             with Timeout(max_value):  # Call class Timeout with the max value
@@ -85,20 +82,14 @@ def typing_test(use_time_mode, max_value):
 
                     # Create tuple with requested and received key with its durations and append to a list for the
                     # dict later on.
-                    input_tuple = Input(requested=chr(low_case), received=pressed_key, duration=type_elapsed_time)
-                    input_list.append(input_tuple)
+                    input = Input(requested=chr(low_case), received=pressed_key, duration=type_elapsed_time)
+                    inputs.append(input)
 
                     # Check the pressed key with the random low case letter
                     if pressed_key == chr(low_case):
                         print('You typed letter ' + Fore.GREEN + pressed_key + Fore.RESET)
-                        number_of_hits += 1
-                        #idx_hit.append(number_inputs)
-                        #type_hit_average_duration.append(type_elapsed_time)
                     else:
                         print('You typed letter ' + Fore.RED + pressed_key + Fore.RESET)
-                        #type_miss_average_duration.append(type_elapsed_time)
-
-                    number_inputs += 1
 
         except Timeout.Timeout:
             pass
@@ -116,33 +107,36 @@ def typing_test(use_time_mode, max_value):
 
             # Analyse pressed key to see if it's a space, to stop the code.
             if pressed_key == str(' '):
-                print(Fore.RED+'----ATENTION----'+Fore.RESET)
-                print('\nYou pressed the space bar, test aborted.')
+                print(Fore.RED + '\n----ATTENTION----' + Fore.RESET)
+                print('You pressed the space bar, test aborted.')
                 exit(0)
 
-            # Create tuple with requested and received key with its durations and append to a list for the dict later on.
-            input_tuple = Input(requested=chr(low_case), received=pressed_key, duration=type_elapsed_time)
-            input_list.append(input_tuple)
+            # Create tuple with requested and received key with its durations and append to a list for the dict later
+            # on.
+            input = Input(requested=chr(low_case), received=pressed_key, duration=type_elapsed_time)
+            inputs.append(input)
 
             # Check the pressed key with the random low case letter
             if pressed_key == chr(low_case):
                 print('You typed letter ' + Fore.GREEN + pressed_key + Fore.RESET)
-                number_of_hits += 1
-                #type_hit_average_duration.append(type_elapsed_time)
             else:
                 print('You typed letter ' + Fore.RED + pressed_key + Fore.RESET)
-                #type_miss_average_duration.append(type_elapsed_time)
 
             number_inputs += 1
 
-    type_average_durations = [type_duration.duration for type_duration in input_list]
-    type_hit_average_duration=[type_duration.duration for type_duration in input_list if \
-                               type_duration.requested == type_duration.received]
-    type_miss_average_duration= [type_duration.duration for type_duration in input_list if \
-                                 type_duration.requested != type_duration.received]
+    # Create lists for all type durations
+    type_average_durations = [type_duration.duration for type_duration in inputs]
+    type_hit_average_durations = [type_duration.duration for type_duration in inputs if \
+                                 type_duration.requested == type_duration.received]
+    type_miss_average_durations = [type_duration.duration for type_duration in inputs if \
+                                  type_duration.requested != type_duration.received]
 
-    return input_list, number_inputs, number_of_hits, type_average_durations, type_hit_average_duration, \
-           type_miss_average_duration
+    return inputs, type_average_durations, type_hit_average_durations, type_miss_average_durations
+
 
 def pprint_color(obj):
+    """
+    Function that return the pretty print with colors.
+    :param obj: the string that should be printed.
+    """
     print(highlight(pformat(obj), PythonLexer(), Terminal256Formatter()))
