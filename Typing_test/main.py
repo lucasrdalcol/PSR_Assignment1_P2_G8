@@ -113,7 +113,7 @@ def main():
     else:
         parameters['type_miss_average_duration'] = None
 
-    # Pretty print with colors
+    # Pretty print of the dict with colors
     pprint_color(parameters)
 
     # Print messages to motivate the user according to his accuracy
@@ -133,10 +133,10 @@ def main():
 
     # Ask to the user if he wants to try again or not.
     if bool(inputs):
-        print('\nI bet this was fun, do you want to play again?')
+        print('\nI bet this was fun!')
     else:
-        print('\nYou should have played, do you want to try again?')
-    answer = str(input(Back.GREEN + 'Run again?' + Back.RESET + '(y/n): '))
+        print('\nYou should have played!')
+    answer = str(input(Back.GREEN + 'Do you want to play again?' + Back.RESET + '(y/n): '))
 
     if answer == 'y':
         os.execv(sys.argv[0], sys.argv)

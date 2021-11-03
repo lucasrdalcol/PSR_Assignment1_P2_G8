@@ -57,6 +57,7 @@ def typing_test(use_time_mode, max_value):
     :param max_value: maximum value of seconds within time mode or maximum value of inputs within input mode
     :return inputs: list of namedtuples
     """
+
     # Initialize list of inputs and counter of number of inputs
     inputs = []
     number_inputs = 0
