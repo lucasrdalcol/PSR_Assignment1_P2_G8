@@ -62,6 +62,8 @@ def typing_test(use_time_mode, max_value):
     inputs = []
     number_inputs = 0
 
+    print(Fore.BLUE + '\nPress space bar to abort the test.\n' + Fore.RESET)
+
     # Use time mode or use input mode
     if use_time_mode:
         try:  # Stop the program immediately when time runs out
@@ -110,7 +112,7 @@ def typing_test(use_time_mode, max_value):
             # Analyse pressed key to see if it's a space, to stop the code.
             if pressed_key == str(' '):
                 print(Fore.RED + '\n----ATTENTION----' + Fore.RESET)
-                print('You pressed the space bar, test aborted.')
+                print('You pressed the space bar, test aborted.\n')
                 exit(0)
 
             # Create tuple with requested and received key with its durations and append to a list for the dict later
