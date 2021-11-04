@@ -12,7 +12,7 @@ This program aims to measure your typing accuracy.
 # Hello PSR
 # Hello again
 # Hello again again
-
+# Hello again x3
 
 # Usage
 To launch the program, the user can enter 2 additional input arguments: the Maximum Value and/or the User Time Mode.
