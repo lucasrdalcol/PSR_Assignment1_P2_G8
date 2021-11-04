@@ -9,6 +9,8 @@ This program aims to measure your typing accuracy.
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
+# Hello PSR
+
 
 # Usage
 To launch the program, the user can enter 2 additional input arguments: the Maximum Value and/or the User Time Mode.
