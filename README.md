@@ -11,6 +11,7 @@ This program aims to measure your typing accuracy.
 
 # Hello PSR
 # Hello again
+# Hello again again
 
 
 # Usage
